@@ -76,7 +76,6 @@ function solve() {
 
                 currentStudent = that._studentsData[studentID - 1];
 
-                // consider changing it to throw Error (if homework is already submitted)
                 if (currentStudent.homeworks.indexOf(homeworkID) === -1) {
                     currentStudent.homeworks.push(homeworkID);
                 }
@@ -93,11 +92,15 @@ function solve() {
                     throw new Error('Null or undefined passed as an argument to pushExamResults()');
                 }
 
+                if (Array.isArray(results) === false) {
+                    throw new Error('pushExamResults() expects an array.');
+                }
+
                 resultsLength = results.length;
 
                 for (var i = 0; i < resultsLength; i += 1) {
                     currentId = results[i].StudentID;
-                    currentScore = results[i].Score;
+                    currentScore = results[i].score;
 
                     validateInteger(currentId);
                     if (isNaN(currentScore)) {
